@@ -1,0 +1,6 @@
+fastapi
+pysnmp
+psycopg2-binary
+paramiko
+netmiko
+pydantic
