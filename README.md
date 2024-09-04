@@ -3,8 +3,8 @@
 - FastAPI Server
 
 - Start the virtual env
-  `venv\Scripts\activate
+  `venv\Scripts\activate`
 
 - Run the fast api server
-  `uvicorn main:app --reload
+  `uvicorn main:app --reload`
 
