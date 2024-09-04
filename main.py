@@ -38,7 +38,6 @@ def device_selected(Id: int, db: Session = Depends(get_db)):
 
 @app.post("/device", response_model=schemas.Devices)
 def add_device(post: schemas.Devices, db: Session = Depends(get_db)):
-    # new_post = models.Posts(title=post.title, content=post.content, published=post.published) is same as below
     new_post = models.Devices(**post.dict())  # ** unpacks the dict
     # It automatically takes the fields as a dict and then unpacks it to get the necessary result
     db.add(new_post)
