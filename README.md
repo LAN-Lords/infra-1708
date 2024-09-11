@@ -68,20 +68,20 @@ Used in Cisco IOS to configure an SNMPv3 user with authentication and privacy se
 After configuring SNMPv3, you can verify the settings with the following commands:
 
 1. **Verify SNMPv3 User Configuration:**
-   ```plaintext
-   Router# show snmp user
+   ```bash
+   show snmp user
    ```
    This command lists all SNMPv3 users and their configuration details.
 
 2. **Verify SNMPv3 Group Configuration:**
-   ```plaintext
-   Router# show snmp group
+   ```bash
+   show snmp group
    ```
    This command shows SNMP groups and their associated users and permissions.
 
 ## Enabling Telnet on a Router
 
-bash```
+```bash
    config t
    line vty 0 4
    password password
@@ -102,7 +102,7 @@ sudo nfcapd -w -D -l /var/cache/nfdump/
 
 ## Enabling Netflow data-capture on router
 
-bash```
+```bash
 configure terminal
 ip flow-export version 9
 ip flow-export destination 192.168.100.1 9995
