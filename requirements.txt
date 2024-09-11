@@ -4,3 +4,5 @@ psycopg2-binary
 paramiko
 netmiko
 pydantic
+twisted
+redis
