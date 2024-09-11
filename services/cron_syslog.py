@@ -1,5 +1,8 @@
 import os
 from utils.syslog_parser import parse_syslog
+from .ingester import Ingester
+
+ingester = Ingester()
 
 # Path to the syslog file
 SYSLOG_FILE = "/var/log/network.log"
@@ -36,7 +39,10 @@ def read_new_data():
             # Process the new data (print it in this case)
             # parse_syslog(new_data)
             for line in new_data:
-                parse_syslog(line)
+                parsed_syslog = parse_syslog(line)
+                if parsed_syslog:
+                    ingester.ingest_syslog(parsed_syslog)
+                    print(parsed_syslog)
 
             # Update the last read position
             new_position = syslog.tell()
@@ -44,4 +50,4 @@ def read_new_data():
         else:
             print("No new data to read.")
 
-# read_new_data()
+read_new_data()

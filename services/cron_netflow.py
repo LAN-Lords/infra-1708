@@ -3,6 +3,9 @@
 import os
 import subprocess
 from utils.netflow_parser import parse_netflow
+from .ingester import Ingester
+
+ingester = Ingester()
 
 # Define the directory where the nfcapd files are stored
 DIRECTORY = "/var/cache/nfdump"
@@ -28,7 +31,10 @@ def parse_nfdump_file(file_path):
         # Run the nfdump command to parse the file
         output = subprocess.check_output(["nfdump", "-r", file_path], universal_newlines=True)
         for line in output.splitlines():
-            parse_netflow(line)
+            netflow_log = parse_netflow(line)
+            if netflow_log:
+                ingester.ingest_netflow(netflow_log)
+
     except subprocess.CalledProcessError as e:
         print(f"Error parsing file {file_path}: {e}")
 

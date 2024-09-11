@@ -1,10 +1,13 @@
 from netmiko import ConnectHandler
 import re
+from .ingester import Ingester
 
 global nodes 
 global connections 
 global visited 
 global queue 
+
+ingester = Ingester()
 
 def bfs():
     nodes = []
@@ -24,6 +27,8 @@ def bfs():
         print(f'Visited: {visited}\n')
         print(f'Queue: {queue}\n')
         count += 1
+    
+    ingester.ingest_network(nodes, connections)
     print(f'\n\nNodes: {nodes}\n')
     print(f'Connections: {connections}\n')
 

@@ -27,5 +27,4 @@ def parse_syslog(log):
         'event': event,
         'message': message
     }
-    print(log_entry)
     return log_entry
