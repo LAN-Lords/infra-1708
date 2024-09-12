@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 netflow_pattern = re.compile(
     r'(?P<date_first_seen>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})\s+'
@@ -11,6 +12,7 @@ netflow_pattern = re.compile(
     r'(?P<x_dst_ip>\d{1,3}(?:\.\d{1,3}){3}):(?P<x_dst_port>\d+)\s+'
     r'(?P<in_bytes>\d+)\s+(?P<out_bytes>\d+)'
 )
+
 
 def parse_netflow(log):
     match = netflow_pattern.match(log)
@@ -30,8 +32,9 @@ def parse_netflow(log):
             'x_dst_port': int(match.group('x_dst_port')),
             'in_bytes': int(match.group('in_bytes')),
             'out_bytes': int(match.group('out_bytes'))
+
         }
-        print(log_entry)
+        # print(log_entry)
         return log_entry
     else:
         print("No match found")
