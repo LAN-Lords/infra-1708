@@ -9,9 +9,9 @@ class Database:
         if Database._connection is None:
             Database._connection = psycopg2.connect(
                 dbname="sih1708",
-                user="myuser",
-                password="mypassword",
-                host="localhost",
+                user="username",
+                password="QnSsviHA9e7g",
+                host="ep-ancient-queen-a1nkd2pi.ap-southeast-1.aws.neon.tech",
                 port="5432"
             )
         return Database._connection
