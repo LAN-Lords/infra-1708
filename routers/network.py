@@ -32,13 +32,11 @@ def fetch_network_data():
 
         print("Fetched network data successfully.")
 
-        nodes = []
-
         print(f'Nodes: {nodes_pre}')
         print(f'Connections: {connections}')
 
         return {
-            "nodes": nodes,
+            "nodes": nodes_pre,
             "connections": connections
         }
     finally:
