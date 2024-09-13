@@ -12,6 +12,11 @@ print("Python executable:", sys.executable)
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {
+        "status": "OK"
+    }
 
 @app.get("/network")
 def get_network():

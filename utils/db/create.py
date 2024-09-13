@@ -1,4 +1,4 @@
-from ..db.main import Database
+from utils.db.main import Database
 
 create_syslog_table = """
 CREATE TABLE IF NOT EXISTS syslog (

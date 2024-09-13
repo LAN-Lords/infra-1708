@@ -50,4 +50,4 @@ def read_new_data():
         else:
             print("No new data to read.")
 
-read_new_data()
+# read_new_data()

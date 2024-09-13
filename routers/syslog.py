@@ -14,3 +14,5 @@ def fetch_syslog_data():
         return data
     finally:
         cursor.close()
+
+# fetch_syslog_data()

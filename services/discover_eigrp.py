@@ -108,4 +108,4 @@ def get_adjacent_nodes(IP):
         print(e)
         return []
     
-bfs()
+# bfs()
