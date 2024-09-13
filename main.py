@@ -12,11 +12,13 @@ print("Python executable:", sys.executable)
 
 app = FastAPI()
 
+
 @app.get("/")
 def read_root():
     return {
         "status": "OK"
     }
+
 
 @app.get("/network")
 def get_network():
@@ -31,10 +33,11 @@ def get_syslog():
         timestamp1=row[1],
         timestamp2=row[2],
         ip_address=row[3],
-        system=row[4],
-        number=row[5],
-        config_type=row[6],
-        description=row[7],
+        # system=row[4],
+        severity=row[5],
+        # config_type=row[6],
+        # description=row[7],
+        message=f'{row[4]}-{row[6]}:{row[7]}'
     ) for row in events]
 
 

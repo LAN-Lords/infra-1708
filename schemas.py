@@ -28,10 +28,11 @@ class SysLogData(BaseModel):
     timestamp1: datetime
     timestamp2: datetime
     ip_address: str
-    system: str
-    number: str
-    config_type: str
-    description: str
+    # system: str
+    severity: str
+    message: str
+    # config_type: str
+    # description: str
 
 
 class Connection(BaseModel):
