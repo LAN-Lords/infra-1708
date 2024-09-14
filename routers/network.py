@@ -55,8 +55,8 @@ def fetch_network_data():
             conn_id, ip1, ip2 = conn
             connections.append({
                 "id": conn_id,
-                "ip1": ip1,
-                "ip2": ip2
+                "source": ip1,
+                "target": ip2
             })
 
         # For debugging purposes
