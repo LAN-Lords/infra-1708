@@ -14,6 +14,7 @@ class Database:
                 host="ep-ancient-queen-a1nkd2pi.ap-southeast-1.aws.neon.tech",
                 port="5432"
             )
+        print("Connected")
         return Database._connection
 
     @staticmethod
