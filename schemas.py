@@ -44,3 +44,5 @@ class Connection(BaseModel):
 class NetworkSchema(BaseModel):
     nodes: Optional[List] = []
     connections: List[Connection]
+
+

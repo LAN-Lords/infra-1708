@@ -62,3 +62,32 @@ def get_netflow():
         out_bytes=row[14]
 
     ) for row in events]
+
+
+@app.get("/netflow/{Ip}", response_model=List[EventData])
+def get_netflow(Ip: str):
+    events = fetch_netflow_data()  # Assuming this function fetches data from a database
+    matching_events = []  # List to collect all matching rows
+
+    for row in events:
+        if row[5] == Ip or row[7] == Ip:
+            matching_events.append(EventData(
+                id=row[0],
+                timestamp=row[1],
+                event_type=row[2],
+                action=row[3],
+                protocol=row[4],
+                src_ip=row[5],
+                src_port=row[6],
+                dst_ip=row[7],
+                dst_port=row[8],
+                x_src_ip=row[9],
+                x_src_port=row[10],
+                x_dst_ip=row[11],
+                x_dst_port=row[12],
+                in_bytes=row[13],
+                out_bytes=row[14]
+            ))
+
+    # Return all matching events after the loop
+    return matching_events
