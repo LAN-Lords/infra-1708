@@ -6,11 +6,16 @@ from routers.netflow import fetch_netflow_data
 from routers.syslog import fetch_syslog_data
 import sys
 from schemas import EventData, SysLogData
+import socketio
+import asyncio
 
 print(sys.path)
 print("Python executable:", sys.executable)
 
+sio = socketio.AsyncServer(async_mode='asgi')
 app = FastAPI()
+
+app_sio = socketio.ASGIApp(sio, app)
 
 @app.get("/")
 def read_root():
@@ -59,3 +64,15 @@ def get_netflow():
         out_bytes=row[14]
 
     ) for row in events]
+
+@sio.event
+async def connect(sid, environ):
+    print("New-Connection ", sid)
+    await sio.emit("status", {"data": "Connected"})
+
+@sio.event
+async def disconnect(sid):
+    print("Disconnected ", sid)
+
+if __name__ == "__main__":
+    uvicorn.run(app_sio, host="0.0.0.0", port=8000)

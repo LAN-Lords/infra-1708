@@ -11,17 +11,40 @@
 
 # Router Commands Documentation
 
-## Enabling Telnet on a Router
+## Setup
+
+### Router Init
 
 ```bash
-   config t
-   line vty 0 4
-   password password
-   login
-   exit
-   enable secret password
-   exit
-   write memory
+configure terminal
+  interface FastEthernet 0/0
+    ip address 192.168.201.9 255.255.255.0
+    no shut
+  exit
+  interface FastEthernet 0/1
+    ip address 192.168.71.2 255.255.255.0
+    no shut
+  exit
+  router eigrp 100
+    network 192.168.71.0 0.0.0.255
+    no auto-summary
+  exit
+  ip route 0.0.0.0 0.0.0.0 192.168.100.1
+exit
+write memory
+```
+
+### Enabling Telnet on a Router
+
+```bash
+config t
+  line vty 0 4
+    password password
+    login
+  exit
+  enable secret password
+exit
+write memory
 ```
 
 ## Netflow
@@ -121,3 +144,6 @@ nfcapd - netflow
 snmptrapd - snmpv3
 ```
 
+### make the tap interface default route on PC
+
+sudo ip route add default via 192.168.100.1 dev tap0

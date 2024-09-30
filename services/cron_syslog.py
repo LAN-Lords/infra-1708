@@ -22,7 +22,7 @@ def save_last_read_position(position):
     with open(POSITION_FILE, 'w') as file:
         file.write(str(position))
 
-def read_new_data():
+def process_syslog_data():
     """Read and process new data from the syslog file."""
     # Get the last read byte position
     last_position = get_last_read_position()
@@ -49,5 +49,3 @@ def read_new_data():
             save_last_read_position(new_position)
         else:
             print("No new data to read.")
-
-# read_new_data()

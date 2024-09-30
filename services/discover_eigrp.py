@@ -9,7 +9,8 @@ global queue
 
 ingester = Ingester()
 
-def bfs():
+def discover_network():
+    # Simple BFS to discover the network
     nodes = []
     connections = set()
     visited = []
@@ -107,5 +108,5 @@ def get_adjacent_nodes(IP):
     except Exception as e:
         print(e)
         return []
-    
-# bfs()
+
+# discover_network()

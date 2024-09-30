@@ -27,6 +27,9 @@ class Database:
             Database._connection.close()
             Database._connection = None
 
+# psql -h ep-ancient-queen-a1nkd2pi.ap-southeast-1.aws.neon.tech -p 5432 -U username -d sih1708
+
+
 # import pg8000
 
 # class Database:
