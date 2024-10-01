@@ -38,7 +38,7 @@ def parse_nfdump_file(file_path):
     except subprocess.CalledProcessError as e:
         print(f"Error parsing file {file_path}: {e}")
 
-def process_new_files():
+def process_netflow_data():
     """Finds and processes new nfcapd files."""
     # Get the last processed timestamp
     last_processed_timestamp = get_last_processed_timestamp()
@@ -58,5 +58,3 @@ def process_new_files():
 
             # Update the last processed timestamp
             set_last_processed_timestamp(timestamp)
-
-# process_new_files()

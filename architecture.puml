@@ -1,0 +1,129 @@
+' @startuml
+
+' package "SCADA Devices" {
+'     [Router]
+'     [Switch]
+'     [Other Devices]
+' }
+
+' package "Data Collection Agents" {
+'     [SNMPv3 Poller] 
+'     [NetFlow Collector]
+'     [Syslog Collector]
+'     [EIGRP Discovery]
+'     [SNMPv3 Trap Receiver]
+' }
+
+
+' package "Data Processing Engine" {
+'     [Topology Parser]
+'     [Device Profiler]
+'     [Log Parser]
+' }
+' package "Data Storage" {
+'     [RDBMS (PostgreSQL)]
+' }
+
+' package "User Interface" {
+'     [Web-based Visualization (D3.js)]
+'     [Log Explorer]
+'     [Traffic Monitor]
+    
+' }
+
+' package "API Gateway" {
+'     [RESTful API]
+'     [Socket.io]
+' }
+
+' ' Data Collection Relationships
+' [Router] --> [SNMPv3 Poller] : SNMP Poll
+' [Router] --> [Syslog Collector] : Syslog
+' [Router] --> [NetFlow Collector] : NetFlow
+' [SNMPv3 Poller] --> [Device Profiler] : data flow
+' [Syslog Collector] --> [Topology Parser] : data flow
+' [Syslog Collector] --> [Log Parser] : data flow
+' [NetFlow Collector] --> [Log Parser] : data flow
+' [EIGRP Discovery] --> [Topology Parser] : data flow
+' [EIGRP Discovery] --> "SCADA Devices" : SSH Access
+
+' ' Live SNMPv3 Trap
+' [Router] --> [SNMPv3 Trap Receiver] : SNMPv3 Traps
+' [SNMPv3 Trap Receiver] --> [Socket.io] : Push live update
+' [Socket.io] --> [Web-based Visualization (D3.js)] : Send real-time updates
+
+' ' Processing and Storage
+' [Topology Parser] --> [RDBMS (PostgreSQL)] : store Topology
+' [Log Parser] --> [RDBMS (PostgreSQL)] : store logs
+' [Device Profiler] --> [RDBMS (PostgreSQL)] : update node
+
+
+' ' Visualization and APIs
+' [Web-based Visualization (D3.js)] --> [RESTful API] : API requests
+' [RESTful API] --> [RDBMS (PostgreSQL)] : handle requests
+
+' @enduml
+
+@startuml
+package "SCADA Devices" {
+    [Router]
+    [Switch]
+    [Other Devices]
+}
+
+package "Data Collection Agents" {
+    [SNMPv3 Poller] 
+    [NetFlow Collector]
+    [Syslog Collector]
+    [EIGRP Discovery]
+    [SNMPv3 Trap Receiver]
+}
+
+
+package "Data Processing Engine" {
+    [Topology Parser]
+    [Device Profiler]
+    [Log Parser]
+}
+package "Data Storage" {
+    [RDBMS (PostgreSQL)]
+    [Object Store (AWS S3)]
+}
+
+package "User Interface" {
+    [Web-based Visualization (D3.js)]
+    [Log Explorer]
+    [Traffic Monitor]
+    
+}
+
+package "API Gateway" {
+    [RESTful API]
+    [Socket.io]
+}
+
+' Data Collection Relationships
+"SCADA Devices" --> [SNMPv3 Poller] : SNMP Poll
+"SCADA Devices" --> [Syslog Collector] : Syslog
+"SCADA Devices" --> [NetFlow Collector] : NetFlow
+[SNMPv3 Poller] --> [Device Profiler] : data flow
+[Syslog Collector] --> [Topology Parser] : data flow
+[Syslog Collector] --> [Log Parser]
+[NetFlow Collector] --> [Log Parser]
+[EIGRP Discovery] --> [Topology Parser] : data flow
+[EIGRP Discovery] --> "SCADA Devices" : SSH Access
+
+' Live SNMPv3 Trap
+"SCADA Devices" --> [SNMPv3 Trap Receiver] : SNMPv3 Traps
+[SNMPv3 Trap Receiver] --> [Socket.io] : Status Updates
+[Socket.io] --> "User Interface"
+
+' Processing and Storage
+"Data Processing Engine" --> [RDBMS (PostgreSQL)]
+[Syslog Collector] --> [Object Store (AWS S3)]
+[NetFlow Collector] --> [Object Store (AWS S3)]
+
+' Visualization and APIs
+"User Interface" --> [RESTful API] : API requests
+[RESTful API] --> [RDBMS (PostgreSQL)] : handle requests
+@enduml
