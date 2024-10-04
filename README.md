@@ -175,11 +175,19 @@ sudo apt install gns3-server gns3-gui -y
 ```bash
 configure terminal
 interface FastEthernet 0/0
-ip address <ip_address> <subnet_mask>
+ip address 192.168.39.7 255.255.255.0
 no shutdown
 exit
-# repeat for all interfaces
-exit
+# interface FastEthernet 0/1
+# ip address 192.168.99.2 255.255.255.0
+# no shutdown
+# exit
+# interface FastEthernet 1/0
+# ip address 192.168.39.2 255.255.255.0
+# no shutdown
+# exit
+exits
+write memory
 ```
 
 ## 5.3 Enabling EIGRP in the Network
@@ -187,7 +195,9 @@ exit
 ```bash
 configure terminal
 router eigrp 100
-network <connected_ip> <reverse_wildcard_mask> # do it for all connections
+# network 192.168.108.0 0.0.0.255
+network 192.168.99.0 0.0.0.255
+network 192.168.39.0 0.0.0.255
 exit
 exit
 ```
@@ -196,8 +206,8 @@ exit
 
 ```bash
 configure terminal
-snmp-server user <username> <groupname> v3 auth md5 <auth-password> priv aes <priv-password>
-snmp-server user <snmp_user_username> snmpgroup v3 auth md5 <auth-password> priv aes <priv-password>
+snmp-server user user0 group0 v3 auth md5 apassword priv des56 ppassword
+snmp-server user user0 snmpgroup v3 auth md5 apassword priv des56 ppassword
 exit
 end
 ```
@@ -210,10 +220,8 @@ end
 ```bash
 sudo ip tuntap add dev tap0 mode tap
 sudo ip link set dev tap0 up
-sudo ip addr add 10.0.0.1/24 dev tap0
+sudo ip addr add 192.168.100.1/24 dev tap0
 ```
-
-    
 
   - Configure your default route to reference the tap interface
 
@@ -227,7 +235,7 @@ sudo ip route add default dev tap0
 
 ```bash
 configure terminal
-ip route 0.0.0.0 0.0.0.0 10.0.0.1
+ip route 0.0.0.0 0.0.0.0 192.168.100.1
 exit
 ```
 
@@ -235,8 +243,8 @@ exit
 
 ```bash
 configure terminal
-snmp-server traps enable
-snmp-server host <tap-interface-ip-address> version 3 auth <username>
+snmp-server enable traps
+snmp-server host 192.168.100.1 version 3 auth user0
 exit
 ```
 
